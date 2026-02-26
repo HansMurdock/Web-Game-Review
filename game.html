@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Details</title>
+<link rel="stylesheet" href="css/style.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+
+
+/* HERO */
+.game-hero {
+  display: flex;
+  gap: 40px;
+  margin: 30px;
+}
+
+.game-cover {
+  width: 420px;
+  border-radius: 12px;
+}
+
+.game-meta { flex: 1; }
+
+.game-meta h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.game-desc {
+  opacity: 0.8;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* BUTTONS */
+.game-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-download { background: #00c853; color: white; }
+.btn-review   { background: #2962ff; color: white; }
+
+/* SLIDER */
+.slider-container { margin: 30px; }
+
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.slider {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  padding: 10px;
+}
+
+.slider img {
+  height: 220px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.slider img:hover { transform: scale(1.05); }
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.slider-wrapper:hover .slider-btn { opacity: 1; }
+.slider-btn.left  { left: 10px; }
+.slider-btn.right { right: 10px; }
+
+/* REVIEW FORM */
+.review-form {
+  display: none;
+  margin: 30px;
+  background: #0f1b2e;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #0b1626;
+  border: none;
+  color: white;
+  border-radius: 6px;
+}
+
+/* REVIEW CARD */
+.review-card {
+  background: #0f1b2e;
+  margin: 20px 30px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* STAR RATING */
+.star-rating {
+  font-size: 28px;
+  color: #444;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.star-rating span {
+  font-size: 30px;
+  cursor: pointer;
+  color: #555;
+  margin-right: 4px;
+}
+
+.star-rating span.active { color: gold; }
+.star-rating span:hover  { color: gold; }
+
+/* SUBMIT BUTTON */
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  background: #2962ff;
+  color: white;
+  box-sizing: border-box;
+}
+
+.btn-primary:hover    { background: #1a4fd8; }
+.btn-primary:disabled { background: #555; cursor: not-allowed; }
+
+/* SUCCESS POPUP */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-overlay.show { display: flex; }
+
+.popup-box {
+  background: #0f1b2d;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  width: 340px;
+  box-shadow: 0 0 40px rgba(0,200,83,0.3);
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.popup-icon { font-size: 60px; margin-bottom: 12px; }
+
+.popup-box h2 {
+  color: #00e676;
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.popup-box p {
+  color: #aaa;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.popup-btn {
+  padding: 12px 36px;
+  background: #00c853;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup-btn:hover { background: #00e676; }
+
+/* REVIEW CARD PRO */
+.review-card{
+  background:#0f172a;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:15px;
+  display:flex;
+  gap:15px;
+}
+
+.review-avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#2563eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:18px;
+}
+
+.review-content{
+  flex:1;
+}
+
+.review-header{
+  display:flex;
+  justify-content:space-between;
+}
+
+.review-stars{
+  color:gold;
+}
+
+.helpful-btn{
+  margin-top:10px;
+  background:#1e293b;
+  border:none;
+  padding:5px 10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.slider-wrapper{
+position:relative;
+}
+
+.slider-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:black;
+border-radius:50%;
+width:40px;
+height:40px;
+color:white;
+opacity:0;
+}
+
+.slider-wrapper:hover .slider-btn{
+opacity:1;
+}
+@media(max-width:768px){
+
+.game-hero{
+flex-direction:column;
+}
+
+.slider img{
+width:100%;
+}
+
+}
+.review-item{
+  background:#0f1b2d;
+  padding:15px;
+  margin:10px 30px;
+  border-radius:10px;
+}
+
+.review-header{
+  display:flex;
+  gap:15px;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.review-name{
+  font-weight:bold;
+  font-size:16px;
+}
+
+.review-stars{
+  color:gold;
+}
+
+.review-hours{
+  color:#aaa;
+}
+
+.review-date{
+  color:#777;
+}
+
+.review-body{
+  margin-top:10px;
+}
+
+.review-kritik,
+.review-saran{
+  margin-top:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">🎮 GameReview Hub</div>
+  <nav>
+    <a href="index.html">← Back</a>
+  </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="game-hero">
+  <img id="gameCover" class="game-cover">
+  <div class="game-meta">
+    <h1 id="gameTitle"></h1>
+    <div>⭐ Average Rating: <span id="avgRating">-</span></div>
+    <p id="gameDesc" class="game-desc"></p>
+    <div class="game-buttons">
+      <button id="downloadBtn" class="btn btn-download">Download Game</button>
+      <button id="reviewBtn" class="btn btn-review">Write Review</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- SCREENSHOT SLIDER -->
+<section class="slider-container">
+  <h2>Gameplay</h2>
+  <div class="slider-wrapper">
+    <button class="slider-btn left" id="slideLeft">
+      <i class='bx bx-chevron-left'></i>
+    </button>
+    <div id="slider" class="slider"></div>
+    <button class="slider-btn right" id="slideRight">
+      <i class='bx bx-chevron-right'></i>
+    </button>
+  </div>
+</section>
+
+<div id="recommendBar"></div>
+<!-- COMMUNITY REVIEWS -->
+<section>
+  <h2 style="margin-left:30px;">Community Reviews</h2>
+  <div id="reviewList"></div>
+</section>
+
+
+<!-- REVIEW FORM -->
+<section id="reviewFormSection" class="review-form">
+  <h2>Write Review</h2>
+  <form id="reviewForm">
+
+    <input id="username" placeholder="Username" required>
+    <input id="email" placeholder="Email">
+    <input id="age" placeholder="Age">
+
+    <select id="platform">
+      <option>PC</option>
+      <option>Android</option>
+      <option>Console</option>
+    </select>
+
+    <input id="hours" placeholder="Hours Played">
+
+    <label>Gameplay Rating</label>
+    <div class="star-rating" data-type="gameplay">
+      <span data-value="1">☆</span>
+      <span data-value="2">☆</span>
+      <span data-value="3">☆</span>
+      <span data-value="4">☆</span>
+      <span data-value="5">☆</span>
+    </div>
+    <input type="hidden" id="ratingGameplay" value="0">
+
+    <label>Graphic Rating</label>
+    <div class="star-rating" data-type="graphic">
+      <span data-value="1">☆</span>
+      <span data-value="2">☆</span>
+      <span data-value="3">☆</span>
+      <span data-value="4">☆</span>
+      <span data-value="5">☆</span>
+    </div>
+    <input type="hidden" id="ratingGraphic" value="0">
+
+    <label>Story Rating</label>
+    <div class="star-rating" data-type="story">
+      <span data-value="1">☆</span>
+      <span data-value="2">☆</span>
+      <span data-value="3">☆</span>
+      <span data-value="4">☆</span>
+      <span data-value="5">☆</span>
+    </div>
+    <input type="hidden" id="ratingStory" value="0">
+
+    <textarea id="kritik" placeholder="Criticism"></textarea>
+    <textarea id="saran" placeholder="Suggestion"></textarea>
+
+    <select id="recommend">
+      <option value="1">Recommend</option>
+      <option value="0">Not Recommend</option>
+    </select>
+
+    <button type="submit" id="submitBtn" class="btn-primary">
+      Submit Review
+    </button>
+
+  </form>
+</section>
+
+
+<!-- SUCCESS POPUP -->
+<div id="successPopup" class="popup-overlay">
+  <div class="popup-box">
+    <div class="popup-icon">🎉</div>
+    <h2>Review Berhasil!</h2>
+    <p>Terima kasih sudah memberikan review.<br>Review kamu sudah muncul di Community Reviews!</p>
+    <button class="popup-btn" onclick="closePopup()">Lihat Review Saya</button>
+  </div>
+</div>
+
+
+<script src="js/game.js"></script>
+</body>
+</html>

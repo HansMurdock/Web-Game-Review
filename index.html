@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GameReview Hub</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+
+/* tambahan khusus home */
+
+.game-grid{
+display:grid;
+grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+gap:20px;
+margin-top:15px;
+}
+
+.game-card{
+background:#111827;
+border-radius:12px;
+padding:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.game-card:hover{
+transform:translateY(-5px);
+background:#1f2937;
+}
+
+.game-card img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.game-card h4{
+margin:8px 0 4px;
+font-size:16px;
+}
+
+.game-card .rating{
+color:#fbbf24;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+<header class="navbar">
+
+<div class="logo">
+<i class='bx bxs-joystick'></i>
+GameReview Hub
+</div>
+
+<nav>
+
+<a href="#">
+<i class='bx bx-home'></i> Home
+</a>
+
+<a href="#">
+<i class='bx bx-trophy'></i> Top Games
+</a>
+
+<a href="#">
+<i class='bx bx-group'></i> Community
+</a>
+
+<a href="#">
+<i class='bx bx-envelope'></i> Contact
+</a>
+
+</nav>
+
+</header>
+
+
+<!-- SEARCH -->
+<section class="search-section">
+
+<input 
+type="text"
+placeholder="Search your favorite game..."
+id="searchInput"
+>
+
+</section>
+
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar-left">
+
+<h3>
+<i class='bx bx-category'></i>
+Categories
+</h3>
+
+<ul>
+<li><i class='bx bx-crosshair'></i> Action</li>
+<li><i class='bx bx-shield-quarter'></i> RPG</li>
+<li><i class='bx bx-sword'></i> MOBA</li>
+<li><i class='bx bx-brain'></i> Strategy</li>
+</ul>
+
+
+<h3>
+<i class='bx bx-devices'></i>
+Platforms
+</h3>
+
+<ul>
+<li><i class='bx bx-desktop'></i> PC</li>
+<li><i class='bx bx-mobile'></i> Android</li>
+<li><i class='bx bx-game'></i> Console</li>
+</ul>
+
+
+<div class="stat-box">
+
+<h4>
+<i class='bx bx-bar-chart'></i>
+Total Reviews
+</h4>
+
+<p id="totalReviews">0</p>
+
+</div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+
+<h2>🔥 Trending Games</h2>
+
+<div 
+class="game-grid"
+id="trendingGames"
+>
+
+<!-- inserted by JS -->
+
+</div>
+
+
+
+<h2>⭐ Top Rated Games</h2>
+
+<div 
+class="game-grid"
+id="topRated"
+>
+
+<!-- inserted by JS -->
+
+</div>
+
+
+</main>
+
+<!-- RIGHT SIDEBAR -->
+<aside class="sidebar-right">
+
+<h3>About Platform</h3>
+
+<p>
+
+Discover, rate, and review your favorite games.
+Join the community and share your experience.
+
+</p>
+
+
+<div class="highlight-box">
+
+<h4>🎮 Game of The Week</h4>
+
+<p id="highlightGame">
+
+Loading...
+
+</p>
+
+</div>
+
+</aside>
+
+
+</div>
+
+
+<footer>
+
+<p>
+
+© Khansa Rasendriya Aji 2026. All rights reserved.
+
+</p>
+
+</footer>
+
+
+<script src="js/home.js"></script>
+
+
+</body>
+</html>
